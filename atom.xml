@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>长亭短亭</title>
+  
+  <subtitle>Man Propose, God Dispose.</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://aemonswift.github.io/"/>
+  <updated>2019-10-22T00:59:53.081Z</updated>
+  <id>http://aemonswift.github.io/</id>
+  
+  <author>
+    <name>AemonSwift</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hello</title>
+    <link href="http://aemonswift.github.io/2019/10/21/hello/"/>
+    <id>http://aemonswift.github.io/2019/10/21/hello/</id>
+    <published>2019-10-21T12:01:35.000Z</published>
+    <updated>2019-10-22T00:59:53.081Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><h2 id="问题为什么重要"><a href="#问题为什么重要" class="headerlink" title="问题为什么重要"></a>问题为什么重要</h2><h2 id="问题目前解决方案有哪些"><a href="#问题目前解决方案有哪些" class="headerlink" title="问题目前解决方案有哪些"></a>问题目前解决方案有哪些</h2><h2 id="问题的难点是什么"><a href="#问题的难点是什么" class="headerlink" title="问题的难点是什么"></a>问题的难点是什么</h2><h2 id="你的创新点是什么"><a href="#你的创新点是什么" class="headerlink" title="你的创新点是什么"></a>你的创新点是什么</h2><h1 id="问题求解"><a href="#问题求解" class="headerlink" title="问题求解"></a>问题求解</h1><h2 id="问题数学描述"><a href="#问题数学描述" class="headerlink" title="问题数学描述"></a>问题数学描述</h2><p>问世间，何许人也！</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h1&gt;&lt;h2 id=&quot;问题为什么重要&quot;&gt;&lt;a href=&quot;#问题为什么重要&quot; class=&quot;headerlink&quot; title=&quot;问题为
+      
+    
+    </summary>
+    
+    
+      <category term="音乐" scheme="http://aemonswift.github.io/categories/%E9%9F%B3%E4%B9%90/"/>
+    
+      <category term="前端" scheme="http://aemonswift.github.io/categories/%E9%9F%B3%E4%B9%90/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="后端" scheme="http://aemonswift.github.io/categories/%E9%9F%B3%E4%B9%90/%E5%89%8D%E7%AB%AF/%E5%90%8E%E7%AB%AF/"/>
+    
+    
+      <category term="古典" scheme="http://aemonswift.github.io/tags/%E5%8F%A4%E5%85%B8/"/>
+    
+      <category term="轻音乐" scheme="http://aemonswift.github.io/tags/%E8%BD%BB%E9%9F%B3%E4%B9%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://aemonswift.github.io/2019/10/21/hello-world/"/>
+    <id>http://aemonswift.github.io/2019/10/21/hello-world/</id>
+    <published>2019-10-21T00:53:07.676Z</published>
+    <updated>2019-10-21T00:53:07.676Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>
