@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://aemonswift.github.io/"/>
-  <updated>2019-11-06T02:23:19.070Z</updated>
+  <updated>2019-11-07T10:49:27.038Z</updated>
   <id>http://aemonswift.github.io/</id>
   
   <author>
@@ -15,6 +15,21 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>oceanbase简介</title>
+    <link href="http://aemonswift.github.io/2019/11/07/oceanbase%E7%AE%80%E4%BB%8B/"/>
+    <id>http://aemonswift.github.io/2019/11/07/oceanbase简介/</id>
+    <published>2019-11-07T10:49:27.000Z</published>
+    <updated>2019-11-07T10:49:27.038Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>区块链简介</title>
@@ -132,9 +147,9 @@
     <link href="http://aemonswift.github.io/2019/11/04/mysql%E4%B9%8B%E8%8C%83%E5%BC%8F/"/>
     <id>http://aemonswift.github.io/2019/11/04/mysql之范式/</id>
     <published>2019-11-04T11:17:19.000Z</published>
-    <updated>2019-11-07T09:55:41.544Z</updated>
+    <updated>2019-11-07T11:06:20.138Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="为什么存在范式"><a href="#为什么存在范式" class="headerlink" title="为什么存在范式"></a>为什么存在范式</h1><p>引入范式的目的主要是解决数据冗余问题。<br>例如：<br><img alt="订单综述表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F1.png" class="lozad"><br>数据库看上去像一个表格，其实不然，比如如下的订单表，一个订单号X2001对应一个用户，但是还对应了两行产品，非常不规范。<br>要想把这个表规范化，可以使用范式。</p><h1 id="第一范式——字段是不可再分"><a href="#第一范式——字段是不可再分" class="headerlink" title="第一范式——字段是不可再分"></a>第一范式——字段是不可再分</h1><p>即不存在一个字段中存在两个及以上值的情况。<br>在上述例子中，为了规范话，我们可以进行拆分两个表格。<br>一个是订单表：一个订单号可以唯一的确定一行<br><img alt="订单表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F12png" class="lozad"><br>一个是细节表：一个订单号+产品编码才可以唯一的确定一行。<br><img alt="细节表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F3.png" class="lozad"><br>所以我们说订单表的主键是 （订单号）， 细节表的主键是（订单号，产品编码）， 这是一个复合主键。</p><h1 id="第二范式——所有属性都依赖于主键"><a href="#第二范式——所有属性都依赖于主键" class="headerlink" title="第二范式——所有属性都依赖于主键"></a>第二范式——所有属性都依赖于主键</h1><p>即把其它不想关的字段都拆分出去。<br>再看看订单细节表， 产品名称和单价实际上并不依赖于订单号。如果想添加一个新的产品， 你会发现没法放入这张表， 因为没有订单号！<br><img alt="细节表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F4.png" class="lozad"><br>所以还需要进行拆分<br><img alt="拆分后的表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F5.png" class="lozad"><br>拆分以后，表4.1订单细节表的主键还是（订单号，产品编码），但是剩下的属性（数量）肯定是完全依赖于主键的。表4.2产品表也类似，主键是产品编码，剩下的属性都依赖于产品编码</p><h2 id="不满足第二范式存在如下问题"><a href="#不满足第二范式存在如下问题" class="headerlink" title="不满足第二范式存在如下问题"></a>不满足第二范式存在如下问题</h2><ol><li>数据冗余：同个用户可以产生n个订单，用户的名称重复了n-1次</li><li>更新异常：若用户更改自己的名称时，数据表关于此用户所在行的名称都要更新，否则导致用户名称不一致性。</li><li>插入异常：若出现一个新用户时，用户只来注册。不来买东西，则这个用户是无法插入到数据库中。</li><li>删除异常：一批用户已完成产品的买入，这些记录应该从数据库表中删除。但删除时导致用户的信息也删除。</li></ol><h1 id="第三范式——消除依赖传递-属性不依赖于其它非主属性"><a href="#第三范式——消除依赖传递-属性不依赖于其它非主属性" class="headerlink" title="第三范式——消除依赖传递(属性不依赖于其它非主属性)"></a>第三范式——消除依赖传递(属性不依赖于其它非主属性)</h1><p>我们再回过头来看一下表格3 订单表，它的主键是订单号，所有的属性都依赖于主键，已经是第二范式。 但是我们发现，订单号能决定用户ID，用户ID能决定用户名称，这就出现了依赖传递：$\color{red}{订单号-&gt;用户ID-&gt;用户名称}$。<br><img alt="依赖传递表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F6.png" class="lozad"><br>进行拆分：<br><img alt="拆分表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F7.png" class="lozad"></p><h2 id="不满足第二范式存在如下问题-1"><a href="#不满足第二范式存在如下问题-1" class="headerlink" title="不满足第二范式存在如下问题"></a>不满足第二范式存在如下问题</h2><ol><li>数据冗余：</li><li>更新异常：</li><li>插入异常：</li><li>删除异常：</li></ol><h1 id="BC范式——消除非主属性对任一一个候选键依赖"><a href="#BC范式——消除非主属性对任一一个候选键依赖" class="headerlink" title="BC范式——消除非主属性对任一一个候选键依赖"></a>BC范式——消除非主属性对任一一个候选键依赖</h1><p>例如：<br>仓库管理表，且有一个管理员只在一个仓库工作；一个仓库可以存储多种物品<br>仓库|    管理员    |物品类型    |数目<br>:-:|:-:|:-:|:-:<br>1    |刘老师|    物品A|    10<br>1|    刘老师|    物品B|    15<br>2|    王老师    |物品B|    20<br>2    |王老师|    物品C|    10<br>… …    |… …    |… …    |… …<br>表中候选键有：(仓库，物品类型)和(管理员，物品类型)，由于一个管理员只能为一个仓库的管理员，故（仓库，管理员，物品类型）都是关键字段，而数目为非关键字段。<br>这张表符合1NF元素不可分。符合2NF，因为证书数目由(仓库，物品类型)决定，但是(管理员，物品类型)也能决定。对于3NF，它也是符合的，因为只有一个非主属性，肯定是由码直接决定的啦。$\color{red}{那么BCNF的规范是什么呢？就是不能有主属性的互相推导。就是说，如果存在(仓库-&gt;管理员)(管理员-&gt;仓库)这种关系，是不符合BCNF的。}$<br>出现关键字段决定关键字段{(仓库-&gt;管理员)(管理员-&gt;仓库)}，将会有如下异常：</p><ol><li>删除异常：当仓库被清空后，所有”存储物品ID”和”数量”信息被删除的同时，”仓库ID”和”管理员ID”信息也被删除了。</li><li>插入异常：当仓库没有存储任何物品时，无法给仓库分配管理员。</li><li>更新异常：如果仓库换了管理员，则表中所有行的管理员ID都要修改。</li></ol><p>应该把仓库管理关系表分解为二个关系表：<br>表1<br>班级|    竞赛学科|    证书数目<br>:-:|:-:|:-:<br>1班    |物理    |10<br>1班    |化学    |15<br>2班    |生物|    20<br>2班|    物理|    10<br>… …|    … …|    … …</p><p>表2<br>班级|    班主任<br>:-:|:-:<br>1班|    刘老师<br>2班    |王老师<br>… …|    … …</p><h1 id="第四范式——属性之间不允许有非平凡且非函数依赖的多值依赖"><a href="#第四范式——属性之间不允许有非平凡且非函数依赖的多值依赖" class="headerlink" title="第四范式——属性之间不允许有非平凡且非函数依赖的多值依赖"></a>第四范式——属性之间不允许有非平凡且非函数依赖的多值依赖</h1><p>即当一个表中的非主属性互相独立时（3NF），这些非主属性不应该有多值。若有多值就违反了第四范式。<br>有这样一个用户联系方式表TELEPHONE(CUSTOMERID,PHONE,CELL)。CUSTOMERID为用户ID,PHONE为用户的固定电话,CELL为用户的移动电话。<br>本来，这是一个非常简单的第3范式表。主键为CUSTOMERID，不存在传递依赖。但在某些情况下，这样的表还是不合理的。比如说，用户有两个固定电话，两个移动电话。这时，表的具体表示如下：</p><table><thead><tr><th align="center">CUSTOMERID</th><th align="center">PHONE</th><th align="center">CELL</th></tr></thead><tbody><tr><td align="center">1000</td><td align="center">8828-1234</td><td align="center">149088888888</td></tr><tr><td align="center">1000</td><td align="center">8838-1234</td><td align="center">149099999999</td></tr></tbody></table><p>由于PHONE和CELL是互相独立的，而有些用户又有两个和多个值。这时此表就违反第四范式。<br>在这种情况下，此表的设计就会带来很多维护上的麻烦。例如，如果用户放弃第一行的固定电话和第二行的移动电话，那么这两行会合并吗？等等<br>解决问题的方法为，设计一个新表NEW_PHONE(CUSTOMERID,NUMBER,TYPE).这样就可以对每个用户处理不同类型的多个电话号码，而不会违反第四范式。<br>显然，第四范式的应用范围比较小，因为只有在某些特殊情况下，要考虑将表规范到第四范式。所以在实际应用中，一般不要求表满足第四范式。</p><h1 id="第五范式——最终范式，消除4NF中的连接依赖"><a href="#第五范式——最终范式，消除4NF中的连接依赖" class="headerlink" title="第五范式——最终范式，消除4NF中的连接依赖"></a>第五范式——最终范式，消除4NF中的连接依赖</h1><p>表必须可以分解为较小的表，除非那些表在逻辑上拥有与原始表相同的主键。<br>第五范式是在第四范式的基础上做的进一步规范化。第四范式处理的是相互独立的多值情况，而第五范式则处理相互依赖的多值情况。<br>有一个销售信息表SALES（SALEPERSON，VENDOR，PRODUCT）。SALEPERSON代表销售人员，VENDOR代表供货商，PRODUCT则代表产品。</p><p>在某些情况下，这个表中会产生一些冗余。可以将表分解为PERSON_VENDOR表（SALEPERSON，VENDOR）；PERSON_PRODUCT表（SALEPERSON，PRODUCT）；VENDOR­_PRODICT表（VENDOR，PRODUCT）</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>6种范式的关系为：$1NF\supset 2NF \supset 3NF \supset BCNF \supset 4NF \supset 5NF$<br>一般表达设计只考虑到BCNF即可，为了满足范式要求，需要把一张大表拆分开，到时候查询岂不是非常麻烦？是的，需要将这些表Join起来，如果数据量大的时候，连接非常耗时。$\color{red}{但有时为了加快数据的查询速度（减少多次查询）我们需要违反范式，做点数据冗余。}$</p><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a href="https://www.cnblogs.com/Diyo/p/11414424.html" target="_blank" rel="noopener">数据库6大范式</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="为什么存在范式"><a href="#为什么存在范式" class="headerlink" title="为什么存在范式"></a>为什么存在范式</h1><p>引入范式的目的主要是解决数据冗余问题。<br>例如：<br><img alt="订单综述表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F1.png" class="lozad"><br>数据库看上去像一个表格，其实不然，比如如下的订单表，一个订单号X2001对应一个用户，但是还对应了两行产品，非常不规范。<br>要想把这个表规范化，可以使用范式。</p><h1 id="第一范式——字段是不可再分"><a href="#第一范式——字段是不可再分" class="headerlink" title="第一范式——字段是不可再分"></a>第一范式——字段是不可再分</h1><p>即不存在一个字段中存在两个及以上值的情况。<br>在上述例子中，为了规范话，我们可以进行拆分两个表格。<br>一个是订单表：一个订单号可以唯一的确定一行<br><img alt="订单表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F2.png" class="lozad"><br>一个是细节表：一个订单号+产品编码才可以唯一的确定一行。<br><img alt="细节表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F3.png" class="lozad"><br>所以我们说订单表的主键是 （订单号）， 细节表的主键是（订单号，产品编码）， 这是一个复合主键。</p><h1 id="第二范式——所有属性都依赖于主键"><a href="#第二范式——所有属性都依赖于主键" class="headerlink" title="第二范式——所有属性都依赖于主键"></a>第二范式——所有属性都依赖于主键</h1><p>即把其它不想关的字段都拆分出去。<br>再看看订单细节表， 产品名称和单价实际上并不依赖于订单号。如果想添加一个新的产品， 你会发现没法放入这张表， 因为没有订单号！<br><img alt="细节表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F4.png" class="lozad"><br>所以还需要进行拆分<br><img alt="拆分后的表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F5.png" class="lozad"><br>拆分以后，表4.1订单细节表的主键还是（订单号，产品编码），但是剩下的属性（数量）肯定是完全依赖于主键的。表4.2产品表也类似，主键是产品编码，剩下的属性都依赖于产品编码</p><h2 id="不满足第二范式存在如下问题"><a href="#不满足第二范式存在如下问题" class="headerlink" title="不满足第二范式存在如下问题"></a>不满足第二范式存在如下问题</h2><ol><li>数据冗余： 同个产品可以产生n个订单号，产品的名称和单价重复了n-1次</li><li>更新异常： 若产品更改名字或单价时，数据表关于此产品所在行的名称或单价都要更新，否则导致用户名称不一致性。</li><li>插入异常：若出现一个新产品时，则这个产品是无法插入到数据库中。</li><li>删除异常：一批订单号已完成，这些记录应该从数据库表中删除。但删除时导致产品的信息也删除。</li></ol><h1 id="第三范式——消除依赖传递-属性不依赖于其它非主属性"><a href="#第三范式——消除依赖传递-属性不依赖于其它非主属性" class="headerlink" title="第三范式——消除依赖传递(属性不依赖于其它非主属性)"></a>第三范式——消除依赖传递(属性不依赖于其它非主属性)</h1><p>我们再回过头来看一下表格3 订单表，它的主键是订单号，所有的属性都依赖于主键，已经是第二范式。 但是我们发现，订单号能决定用户ID，用户ID能决定用户名称，这就出现了依赖传递：$\color{red}{订单号-&gt;用户ID-&gt;用户名称}$。<br><img alt="依赖传递表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F6.png" class="lozad"><br>进行拆分：<br><img alt="拆分表" data-src="https://cdn.jsdelivr.net/gh/AemonSwift/AemonSwift@latest/AemonSwift.github.io/images/mysql%E8%8C%83%E5%BC%8F7.png" class="lozad"></p><h2 id="不满足第三范式存在如下问题"><a href="#不满足第三范式存在如下问题" class="headerlink" title="不满足第三范式存在如下问题"></a>不满足第三范式存在如下问题</h2><ol><li>数据冗余：同个用户可以产生n个订单，用户的名称重复了n-1次</li><li>更新异常：若用户更改自己的名称时，数据表关于此用户所在行的名称都要更新，否则导致用户名称不一致性。</li><li>插入异常：若出现一个新用户时，用户只来注册。不来买东西，则这个用户是无法插入到数据库中。</li><li>删除异常：一批用户已完成产品的买入，这些记录应该从数据库表中删除。但删除时导致用户的信息也删除。</li></ol><h1 id="BC范式——消除非主属性对任一一个候选键依赖"><a href="#BC范式——消除非主属性对任一一个候选键依赖" class="headerlink" title="BC范式——消除非主属性对任一一个候选键依赖"></a>BC范式——消除非主属性对任一一个候选键依赖</h1><p>例如：<br>仓库管理表，且有一个管理员只在一个仓库工作；一个仓库可以存储多种物品<br>仓库|    管理员    |物品类型    |数目<br>:-:|:-:|:-:|:-:<br>1    |刘老师|    物品A|    10<br>1|    刘老师|    物品B|    15<br>2|    王老师    |物品B|    20<br>2    |王老师|    物品C|    10<br>… …    |… …    |… …    |… …<br>表中候选键有：(仓库，物品类型)和(管理员，物品类型)，由于一个管理员只能为一个仓库的管理员，故（仓库，管理员，物品类型）都是关键字段，而数目为非关键字段。<br>这张表符合1NF元素不可分。符合2NF，因为证书数目由(仓库，物品类型)决定，但是(管理员，物品类型)也能决定。对于3NF，它也是符合的，因为只有一个非主属性，肯定是由码直接决定的啦。$\color{red}{那么BCNF的规范是什么呢？就是不能有主属性的互相推导。就是说，如果存在(仓库-&gt;管理员)(管理员-&gt;仓库)这种关系，是不符合BCNF的。}$<br>出现关键字段决定关键字段{(仓库-&gt;管理员)(管理员-&gt;仓库)}，将会有如下异常：</p><ol><li>删除异常：当仓库被清空后，所有”存储物品ID”和”数量”信息被删除的同时，”仓库ID”和”管理员ID”信息也被删除了。</li><li>插入异常：当仓库没有存储任何物品时，无法给仓库分配管理员。</li><li>更新异常：如果仓库换了管理员，则表中所有行的管理员ID都要修改。</li></ol><p>应该把仓库管理关系表分解为二个关系表：<br>表1<br>班级|    竞赛学科|    证书数目<br>:-:|:-:|:-:<br>1班    |物理    |10<br>1班    |化学    |15<br>2班    |生物|    20<br>2班|    物理|    10<br>… …|    … …|    … …</p><p>表2<br>班级|    班主任<br>:-:|:-:<br>1班|    刘老师<br>2班    |王老师<br>… …|    … …</p><h1 id="第四范式——属性之间不允许有非平凡且非函数依赖的多值依赖"><a href="#第四范式——属性之间不允许有非平凡且非函数依赖的多值依赖" class="headerlink" title="第四范式——属性之间不允许有非平凡且非函数依赖的多值依赖"></a>第四范式——属性之间不允许有非平凡且非函数依赖的多值依赖</h1><p>即当一个表中的非主属性互相独立时（3NF），这些非主属性不应该有多值。若有多值就违反了第四范式。<br>有这样一个用户联系方式表TELEPHONE(CUSTOMERID,PHONE,CELL)。CUSTOMERID为用户ID,PHONE为用户的固定电话,CELL为用户的移动电话。<br>本来，这是一个非常简单的第3范式表。主键为CUSTOMERID，不存在传递依赖。但在某些情况下，这样的表还是不合理的。比如说，用户有两个固定电话，两个移动电话。这时，表的具体表示如下：</p><table><thead><tr><th align="center">CUSTOMERID</th><th align="center">PHONE</th><th align="center">CELL</th></tr></thead><tbody><tr><td align="center">1000</td><td align="center">8828-1234</td><td align="center">149088888888</td></tr><tr><td align="center">1000</td><td align="center">8838-1234</td><td align="center">149099999999</td></tr></tbody></table><p>由于PHONE和CELL是互相独立的，而有些用户又有两个和多个值。这时此表就违反第四范式。<br>在这种情况下，此表的设计就会带来很多维护上的麻烦。例如，如果用户放弃第一行的固定电话和第二行的移动电话，那么这两行会合并吗？等等<br>解决问题的方法为，设计一个新表NEW_PHONE(CUSTOMERID,NUMBER,TYPE).这样就可以对每个用户处理不同类型的多个电话号码，而不会违反第四范式。<br>显然，第四范式的应用范围比较小，因为只有在某些特殊情况下，要考虑将表规范到第四范式。所以在实际应用中，一般不要求表满足第四范式。</p><h1 id="第五范式——最终范式，消除4NF中的连接依赖"><a href="#第五范式——最终范式，消除4NF中的连接依赖" class="headerlink" title="第五范式——最终范式，消除4NF中的连接依赖"></a>第五范式——最终范式，消除4NF中的连接依赖</h1><p>表必须可以分解为较小的表，除非那些表在逻辑上拥有与原始表相同的主键。<br>第五范式是在第四范式的基础上做的进一步规范化。第四范式处理的是相互独立的多值情况，而第五范式则处理相互依赖的多值情况。<br>有一个销售信息表SALES（SALEPERSON，VENDOR，PRODUCT）。SALEPERSON代表销售人员，VENDOR代表供货商，PRODUCT则代表产品。</p><p>在某些情况下，这个表中会产生一些冗余。可以将表分解为PERSON_VENDOR表（SALEPERSON，VENDOR）；PERSON_PRODUCT表（SALEPERSON，PRODUCT）；VENDOR­_PRODICT表（VENDOR，PRODUCT）</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>6种范式的关系为：$1NF\supset 2NF \supset 3NF \supset BCNF \supset 4NF \supset 5NF$<br>一般表达设计只考虑到BCNF即可，为了满足范式要求，需要把一张大表拆分开，到时候查询岂不是非常麻烦？是的，需要将这些表Join起来，如果数据量大的时候，连接非常耗时。$\color{red}{但有时为了加快数据的查询速度（减少多次查询）我们需要违反范式，做点数据冗余。}$</p><h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a href="https://www.cnblogs.com/Diyo/p/11414424.html" target="_blank" rel="noopener">数据库6大范式</a></p>]]></content>
     
     <summary type="html">
     
@@ -496,38 +511,6 @@
     
     
       <category term="算法" scheme="http://aemonswift.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hello</title>
-    <link href="http://aemonswift.github.io/2019/10/21/hello/"/>
-    <id>http://aemonswift.github.io/2019/10/21/hello/</id>
-    <published>2019-10-21T12:01:35.000Z</published>
-    <updated>2019-10-22T00:59:53.081Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><h2 id="问题为什么重要"><a href="#问题为什么重要" class="headerlink" title="问题为什么重要"></a>问题为什么重要</h2><h2 id="问题目前解决方案有哪些"><a href="#问题目前解决方案有哪些" class="headerlink" title="问题目前解决方案有哪些"></a>问题目前解决方案有哪些</h2><h2 id="问题的难点是什么"><a href="#问题的难点是什么" class="headerlink" title="问题的难点是什么"></a>问题的难点是什么</h2><h2 id="你的创新点是什么"><a href="#你的创新点是什么" class="headerlink" title="你的创新点是什么"></a>你的创新点是什么</h2><h1 id="问题求解"><a href="#问题求解" class="headerlink" title="问题求解"></a>问题求解</h1><h2 id="问题数学描述"><a href="#问题数学描述" class="headerlink" title="问题数学描述"></a>问题数学描述</h2><p>问世间，何许人也！</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h1&gt;&lt;h2 id=&quot;问题为什么重要&quot;&gt;&lt;a href=&quot;#问题为什么重要&quot; class=&quot;headerlink&quot; title=&quot;问题为
-      
-    
-    </summary>
-    
-    
-      <category term="音乐" scheme="http://aemonswift.github.io/categories/%E9%9F%B3%E4%B9%90/"/>
-    
-      <category term="前端" scheme="http://aemonswift.github.io/categories/%E9%9F%B3%E4%B9%90/%E5%89%8D%E7%AB%AF/"/>
-    
-      <category term="后端" scheme="http://aemonswift.github.io/categories/%E9%9F%B3%E4%B9%90/%E5%89%8D%E7%AB%AF/%E5%90%8E%E7%AB%AF/"/>
-    
-    
-      <category term="古典" scheme="http://aemonswift.github.io/tags/%E5%8F%A4%E5%85%B8/"/>
-    
-      <category term="轻音乐" scheme="http://aemonswift.github.io/tags/%E8%BD%BB%E9%9F%B3%E4%B9%90/"/>
     
   </entry>
   
